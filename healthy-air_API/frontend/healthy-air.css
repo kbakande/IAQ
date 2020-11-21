@@ -1,0 +1,42 @@
+body, html {
+    height: 100%;
+}
+ul{
+    list-style-type: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    background-color: ivory;
+}
+
+#logo {
+    width: 4rem;
+    height: 4rem;
+}
+
+li a{
+    padding: 0rem 1rem 0rem 1rem;
+    text-decoration: none;
+}
+
+.bg{
+    background-image: url("img/iaq1.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height:100%;
+    text-align:center;
+    color: white;
+    font-size:1.5rem;
+    padding: 25% 0 0 0;
+}
+button{
+    background-color: lightcoral;
+    width: 5rem;
+    height: 2rem;
+}

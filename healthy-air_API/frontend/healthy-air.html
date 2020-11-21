@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="healthy-air.css" >
+</head>
+<body>
+
+    <nav>
+        <div> <img src="img/pic_iaq.jpg" id="logo" /> </div>
+        <ul>
+            <li><a href="#"> Home </a> </li>
+            <li><a href="#"> Pollutants </a> </li>
+            <li><a href="#"> Analytics </a> </li>
+            <li><a href="#"> About</a> </li>
+        </ul>
+    </nav>
+
+    <div class="bg">
+        <button onclick="predict()" class="button">Predict</button>
+        <div id="predict" style="color: blue;"></div>
+    </div>
+
+
+    <script type="application/javascript">
+        function predict(){
+            fetch('http://127.0.0.1:5000/predict',{
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"data": [0, 0, 40, 5]})
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById('predict').innerHTML=data["PM_predicted"])
+            .catch(function(e){
+                  console.log('Error'.e)
+                })
+        }
+        </script>
+</body>
+
+
+
+</html>
