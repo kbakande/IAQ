@@ -35,8 +35,12 @@ li a{
     font-size:1.5rem;
     padding: 25% 0 0 0;
 }
-button{
+.button{
     background-color: lightcoral;
     width: 5rem;
     height: 2rem;
+}
+#live-tb {
+    width: 25%;
+    background-color: rgb(152, 180, 207);
 }

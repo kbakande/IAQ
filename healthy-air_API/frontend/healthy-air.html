@@ -18,6 +18,25 @@
     </nav>
 
     <div class="bg">
+        <table id="live-tb">
+            <caption style="color: blue;"> Live readings</caption>
+            <tr>
+                <th> Pollutants</th>
+                <th> Current readings</th>
+            </tr>
+            <tr>
+                <td> PM2.5 (&mu;g/m3)</td>
+                <td>45</td>
+            </tr>
+            <tr>
+                <td> PM10</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td> C02</td>
+                <td> 12 </td>
+            </tr>
+        </table>
         <button onclick="predict()" class="button">Predict</button>
         <div id="predict" style="color: blue;"></div>
     </div>
