@@ -21,7 +21,7 @@
     <div class="bg">
         <table id="live-tb">
             <caption style="color: blue;"> Live readings</caption>
-            <tr class = 'live'>
+            <tr >
                 <th> Pollutants</th>
                 <th> Current readings</th>
             </tr>
@@ -34,15 +34,15 @@
                 <td>15</td>
             </tr>
             <tr class = 'live'>
-                <td id="hum">Humidity</td>
+                <td id="humid">Humidity</td>
                 <td> 12 </td>
             </tr>
             <tr class = 'live'>
                 <td id="pres"> Pressure</td>
                 <td> 12 </td>
             </tr>
-            <tr class = 'live' id="temp">
-                <td > Temperature</td>
+            <tr class = 'live'>
+                <td id="temp"> Temperature</td>
                 <td > 12 </td>
             </tr>
         </table>
@@ -69,18 +69,21 @@
 
         function live(){
             fetch('http://127.0.0.1:5000/live')
-            .then(response => console.log(response))
-            // .then(data => console(data))
-                // const liveVal = document.querySelectorAll(".live");
-                // for (i=0; i=liveVal.length; i++){
-                //     console.log(liveVal[i])
-                // }
-            // })
+            .then(response => response.json())
+            .then(data => {
+                const liveVal = document.querySelectorAll(".live");
+                for (let i=0; i < liveVal.length; i++){
+                    param = liveVal[i].childNodes[1].id
+                    liveVal[i].childNodes[3].innerHTML = parseInt(data[param]) 
+                }
+            })
             .catch(function(e){
                   console.log('Error'.e)
                 })
         }
         live()
+
+        setInterval(live, 150000)
         </script>
     
     <script type="application/javascript">

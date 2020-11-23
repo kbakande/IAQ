@@ -40,7 +40,7 @@ def create_app():
         temp = data["results"][0]["temp_f"]
         Humidity = data["results"][0]["humidity"]
         Pressure = data["results"][0]["pressure"]
-        liveVals = {"PM2_5": PM2_5, "PM10": PM10, "Temperature": temp, "Humidity": Humidity, "Pressure": Pressure}
+        liveVals = {"PM2.5": PM2_5, "PM10": PM10, "temp": temp, "humid": Humidity, "pres": Pressure}
         print(liveVals)
         return jsonify(liveVals)
 
