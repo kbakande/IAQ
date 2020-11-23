@@ -15,7 +15,7 @@
             <li><a href="#"> Home </a> </li>
             <li><a href="#"> Pollutants </a> </li>
             <li><a href="#"> Analytics </a> </li>
-            <li><a href="#"> About</a> </li>
+            <li><a href="#"> About </a> </li>
         </ul>
     </nav>
 
@@ -27,7 +27,7 @@
                 <th> Current readings</th>
             </tr>
             <tr class = 'aqi'>
-                <td id="aqi"> AQI (&mu;g/m3)</td>
+                <td id="aqi"> AQI</td>
                 <td>45</td>
             </tr>
             <tr class = 'live'>
@@ -77,6 +77,9 @@
             .then(response => response.json())
             .then(data => {
                 const liveVal = document.querySelectorAll(".live");
+                const aqi = document.querySelector(".aqi").childNodes[3]
+                aqi.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
+
                 for (let i=0; i < liveVal.length; i++){
                     param = liveVal[i].childNodes[1].id
                     liveVal[i].childNodes[3].innerHTML = parseInt(data[param]) 
