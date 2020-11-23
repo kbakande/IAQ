@@ -9,7 +9,8 @@
 <body>
 
     <nav>
-        <div> <img src="img/pic_iaq.jpg" id="logo" /> </div>
+        <div style="display: inline-flex; height: 5rem; width: 10%; vertical-align: bottom; justify-content:space-between ;"> <img src="img/pic_iaq.jpg" id="logo" /> 
+        <p style="color: blue; font-size: 1.3rem;"> Healthy-Air</p></div>
         <ul>
             <li><a href="#"> Home </a> </li>
             <li><a href="#"> Pollutants </a> </li>
@@ -24,6 +25,10 @@
             <tr >
                 <th> Pollutants</th>
                 <th> Current readings</th>
+            </tr>
+            <tr class = 'aqi'>
+                <td id="aqi"> AQI (&mu;g/m3)</td>
+                <td>45</td>
             </tr>
             <tr class = 'live'>
                 <td id="PM2.5"> PM2.5 (&mu;g/m3)</td>
