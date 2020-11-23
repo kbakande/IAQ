@@ -5,7 +5,7 @@ import requests
 
 #set up the sensor parameters
 sensorIDs = [25879, 8510, 61397, 33729]
-link ="https://www.purpleair.com/json?show={}"format(sensorIDs[1])
+link ="https://www.purpleair.com/json?show={}".format(sensorIDs[1])
 
 #upload the trained model
 model = pickle.load(open('../model.pkl', 'rb'))
@@ -19,6 +19,7 @@ def create_app():
     def after_request(response):
         response.headers.add("Access-Control-Allowed-Headers", "Content-Type, Authorization, true")
         response.headers.add("Access-Control-Allowed-Methods", "GET, PATCH, POST, DELETE, OPTIONS")
+        response.headers.add("Access-Control-Allowed-Origin", "*")
         return response
 
     @app.route('/')
@@ -31,16 +32,17 @@ def create_app():
         PM_predicted = model.predict([data]).tolist()
         return jsonify({"PM_predicted" : PM_predicted})
 
-    @app.route('/live', methods=["POST"])
+    @app.route('/live')
     def liveReadings():
         data = requests.get(link).json()
-        PM2_5 = data["results"[0]["PM2_Value"]
-        PM10 = data["results"[0]["pm10_0_cf_1"]
-        
-
-
-
-
+        PM2_5 = data["results"][0]["PM2_5Value"]
+        PM10 = data["results"][0]["pm10_0_cf_1"]
+        temp = data["results"][0]["temp_f"]
+        Humidity = data["results"][0]["humidity"]
+        Pressure = data["results"][0]["pressure"]
+        liveVals = {"PM2_5": PM2_5, "PM10": PM10, "Temperature": temp, "Humidity": Humidity, "Pressure": Pressure}
+        print(liveVals)
+        return jsonify(liveVals)
 
     return app
 
