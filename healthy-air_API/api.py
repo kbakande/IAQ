@@ -42,6 +42,9 @@ def create_app():
         Pressure = data["results"][0]["pressure"]
         liveVals = {"PM2.5": PM2_5, "PM10": PM10, "temp": temp, "humid": Humidity, "pres": Pressure}
         return jsonify(liveVals)
+    @app.route('/chart')
+    def getChartData():
+        
 
     return app
 
