@@ -35,17 +35,17 @@
       <section class="content">
         <section class="hero">
           <article class="description" >
-            <h2>Everyone deserves a high indoor air quality!</h2>
+            <h2>Enabling high-quality indoor air in every home!</h2>
         </article>
         </section> 
 
          <section class="scores" >
             <table class="scores__table">
+                <caption id="caption"> Live readings</caption>
               <thead>
                 <tr>
-                  <th>date</th>
-                  <th>team</th>
-                  <th colspan="2">score</th>
+                  <th>Pollutants</th>
+                  <th>Current readings</th>
                   <th>team</th>
                 </tr>
               </thead>
@@ -53,53 +53,50 @@
                 <tr>
                   <td>Friday</td>
                   <td>Bears</td>
-                  <td>95</td>
-                  <td class="winner">109</td>
                   <td class="winner">Cubs</td>
                 </tr>
                 <tr>
                   <td>Friday</td>
                   <td class="winner">Otters</td>
-                  <td class="winner">3</td>
-                  <td>1</td>
                   <td>Cubs</td>
                 </tr>
                 <tr>
                   <td>Saturday</td>
                   <td class="winner">Wolves</td>
-                  <td class="winner">7</td>
-                  <td>0</td>
                   <td>Panthers</td>
                 </tr>
                 <tr>
                   <td>Sunday</td>
                   <td>Hawks</td>
-                  <td>11</td>
-                  <td class="winner">12</td>
                   <td class="winner">Capons</td>
                 </tr>
                 <tr>
                   <td>Sunday</td>
                   <td class="winner">Stags</td>
-                  <td class="winner">6</td>
-                  <td>2</td>
                   <td>Foxes</td>
                 </tr>
-                
+                <tr>
+                    <td>Sunday</td>
+                    <td class="winner">Stags</td>
+                    <td>Foxes</td>
+                  </tr>
+                                 
               </tbody>
             </table>
         </section>
 
-        <section class="top-news">
+        <section class="chart">
 
             <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
 
         </section>
 
-        <section class="investigate">
+
+        <section class="predict">
+
+            <button id="predict"> Get a 3-day forecast</button>
 
         </section>
-
 
         <!-- <section class="news recent-news" style="padding: 10px 0 0 0;">
           <h2 class="news__title">Latest news <a href="#" class="news__more">+ more</a></h2>
@@ -134,17 +131,28 @@
           </ul>
         </section> -->
      </section>
-      <!-- <footer class="footer">
+      <footer class="footer">
         <ul>
           <li><a href="#">Contact us</a></li>
           <li><a href="#">Follow us on Twitter</a></li>
         </ul>
         <small> &copy; Copyright 2020, Noveltric</small>
-      </footer> -->
+      </footer>
     </main>
 
 
     <script>
+
+    // set up the date
+    const getDate = () => {
+            const d = new Date();
+            dt = d.toString().slice(0, 10)
+            document.getElementById("caption").innerHTML = "Live readings, " + dt;
+        }
+
+    getDate()
+
+
     const ctx = document.getElementById('myChart').getContext('2d');
     const chart = new Chart(ctx, {        
     // The type of chart we want to create
