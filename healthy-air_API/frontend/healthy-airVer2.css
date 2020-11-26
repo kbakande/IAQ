@@ -80,13 +80,6 @@ body, html {
    * Top Level Navigation
    *
    */
-  .content{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    min-height: 600px;
-  }
-
   .nav {
     width: 800px;
     margin-left: auto;
@@ -138,7 +131,12 @@ body, html {
    * Content
    *
    */
-  
+   .content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    min-height: 700px;
+  }
   
   /*
    *
@@ -175,7 +173,7 @@ body, html {
    *
    */
   
-  .top-news {
+  .chart {
     width: 400px;
     height: 300px;
   }
@@ -185,6 +183,16 @@ body, html {
       height: 100%;
   }
 
+  .predict{
+      display: block;
+      margin: auto;
+      width: 50%;
+  }
+  #predict{
+      display: block;
+      margin: auto;
+      background-color: lightcoral;
+  }
   /* .investigate{
 
   } */
@@ -209,6 +217,13 @@ body, html {
     padding-top: 0em;
   }
   
+  #caption{
+    background-color: #527f96;
+    color: rgb(226, 153, 43);
+    font-size: 16px;
+
+  }
+
   .scores__table {
     width: 100%;
     border-collapse: collapse;
