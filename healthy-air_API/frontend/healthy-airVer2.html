@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="healthy-airVer2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="healthy-air.js"></script>
   </head>
   <body>
     <header class="header">
@@ -41,44 +42,44 @@
 
          <section class="scores" >
             <table class="scores__table">
-                <caption id="caption"> Live readings</caption>
+                <caption id="caption"> </caption>
               <thead>
                 <tr>
                   <th>Pollutants</th>
                   <th>Current readings</th>
-                  <th>team</th>
+                  <th>Comments</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Friday</td>
-                  <td>Bears</td>
-                  <td class="winner">Cubs</td>
+                <tr class="iaq">
+                  <td id="iaq">IAQ</td>
+                  <td >45</td>
+                  <td>Good</td>
                 </tr>
-                <tr>
-                  <td>Friday</td>
-                  <td class="winner">Otters</td>
-                  <td>Cubs</td>
+                <tr class = 'live'>
+                  <td id="PM2.5">PM2.5</td>
+                  <td >45</td>
+                  <td>Good</td>
                 </tr>
-                <tr>
-                  <td>Saturday</td>
-                  <td class="winner">Wolves</td>
-                  <td>Panthers</td>
+                <tr class = 'live'>
+                  <td id="PM10">PM10</td>
+                  <td >45</td>
+                  <td>Good</td>
                 </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td>Hawks</td>
-                  <td class="winner">Capons</td>
+                <tr class = 'live'>
+                  <td id="humid">Humidity</td>
+                  <td>45</td>
+                  <td >Good</td>
                 </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td class="winner">Stags</td>
-                  <td>Foxes</td>
+                <tr class = 'live'>
+                  <td id="pres">Pressure</td>
+                  <td >45</td>
+                  <td>Good</td>
                 </tr>
-                <tr>
-                    <td>Sunday</td>
-                    <td class="winner">Stags</td>
-                    <td>Foxes</td>
+                <tr class = 'live'>
+                    <td id="temp"> Temperature</td>
+                    <td >45</td>
+                    <td>Good</td>
                   </tr>
                                  
               </tbody>
@@ -93,8 +94,32 @@
 
 
         <section class="predict">
+            <table class="scores__table">
+              <thead>
+                <tr >
+                  <th colspan="3">Get a 3-day forecast </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="forecast-day">
+                  <td class="forecast-date"></td>
+                  <td class="forecast-date"></td>
+                  <td class="forecast-date"></td>
+                </tr>
+                <tr>
+                  <td>45</td>
+                  <td >45</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <td>PM10</td>
+                  <td >45</td>
+                  <td>Good</td>
+                </tr>              
+              </tbody>
+            </table>
 
-            <button id="predict"> Get a 3-day forecast</button>
+            <!-- <button id="predict"> Get a 3-day forecast</button> -->
 
         </section>
 
@@ -147,11 +172,51 @@
     const getDate = () => {
             const d = new Date();
             dt = d.toString().slice(0, 10)
-            document.getElementById("caption").innerHTML = "Live readings, " + dt;
+            // document.getElementById("caption").innerHTML = "Live readings, " + dt ;
+            document.getElementById("caption").innerHTML = "Live readings, " + dt + " " + new Date().toLocaleTimeString();
         }
 
-    getDate()
+    setInterval(getDate, 1000)
 
+    const getNextDate = (nextInt) => {
+        let currentDate = new Date()
+        currentDate.setDate(currentDate.getDate() + parseInt(nextInt))
+        return currentDate
+    }
+
+    const getDay = () => {
+        const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const tdDate = document.querySelectorAll(".forecast-date");
+        for (let i = 0; i < tdDate.length; i++){
+            console.log(typeof(i+1))
+            const nxtDate = getNextDate(i + 1);
+            tdDate[i].innerHTML = weekdays[nxtDate.getDay()]
+            // const nxtDay = nxtDate.toString().slice(0,)
+        }
+    }
+    getDay()
+
+    function live(){
+            fetch('http://127.0.0.1:5000/live')
+            .then(response => response.json())
+            .then(data => {
+                const liveVal = document.querySelectorAll(".live");
+                console.log(data)
+                const iaq = document.querySelector(".iaq").childNodes[3]
+                iaq.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
+
+                for (let i=0; i < liveVal.length; i++){
+                    param = liveVal[i].childNodes[1].id
+                    liveVal[i].childNodes[3].innerHTML = parseFloat(data[param]) 
+                }
+            })
+            .catch(function(e){
+                  console.log('Error'.e)
+                })
+        }
+        live()
+
+        setInterval(live, 150000)
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const chart = new Chart(ctx, {        
