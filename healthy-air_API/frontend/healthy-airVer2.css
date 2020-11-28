@@ -135,7 +135,7 @@ body, html {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    min-height: 700px;
+    min-height: 620px;
   }
   
   /*
@@ -151,6 +151,7 @@ body, html {
     background-image: url("./img/iaq1.jpg");
     background-size: cover;
     height:300px;
+    padding-bottom: 20px ;
   }
   
   .hero article {
