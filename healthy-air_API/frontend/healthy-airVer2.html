@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,121 +10,122 @@
     <link rel="stylesheet" type="text/css" href="healthy-airVer2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="healthy-air.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <header class="header">
-      <div class="header__inner">
-        <img class="header__logo" src="img/pic_iaq.jpg" alt="Healthy-Air Building">
-        <h1 class="header__title">
-          Healthy-Air
-        </h1>
-        <h5 style="padding: 0 0 1rem 20rem;">
-            Improving indoor air quality
-          </h5>
-      </div>
+        <div class="header__inner">
+            <img class="header__logo" src="img/pic_iaq.jpg" alt="Healthy-Air Building">
+            <h1 class="header__title">
+                Healthy-Air
+            </h1>
+            <h5 style="padding: 0 0 1rem 20rem;">
+                Improving indoor air quality
+            </h5>
+        </div>
     </header>
 
     <nav id="drawer" class="nav">
-      <ul class="nav__list">
-        <li class="nav__item"><a href="#">Home</a></li>
-        <li class="nav__item"><a href="#">Pollutants</a></li>
-        <li class="nav__item"><a href="#">Analytics</a></li>
-        <li class="nav__item"><a href="#">About</a></li>
-      </ul>
+        <ul class="nav__list">
+            <li class="nav__item"><a href="#">Home</a></li>
+            <li class="nav__item"><a href="#">Pollutants</a></li>
+            <li class="nav__item"><a href="#">Analytics</a></li>
+            <li class="nav__item"><a href="#">About</a></li>
+        </ul>
     </nav>
 
     <main>
-      <section class="content">
-        <section class="hero">
-          <article class="description" >
-            <h2>Enabling high-quality indoor air in every home!</h2>
-        </article>
-        </section> 
+        <section class="content">
+            <section class="hero">
+                <article class="description">
+                    <h2>Enabling high-quality indoor air in every home!</h2>
+                </article>
+            </section>
 
-         <section class="scores" >
-            <table class="scores__table">
-                <caption id="caption"> </caption>
-              <thead>
-                <tr>
-                  <th>Pollutants</th>
-                  <th>Current readings</th>
-                  <th>Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="iaq">
-                  <td id="iaq">IAQ</td>
-                  <td >45</td>
-                  <td>Good</td>
-                </tr>
-                <tr class = 'live'>
-                  <td id="PM2.5">PM2.5</td>
-                  <td >45</td>
-                  <td>Good</td>
-                </tr>
-                <tr class = 'live'>
-                  <td id="PM10">PM10</td>
-                  <td >45</td>
-                  <td>Good</td>
-                </tr>
-                <tr class = 'live'>
-                  <td id="humid">Humidity</td>
-                  <td>45</td>
-                  <td >Good</td>
-                </tr>
-                <tr class = 'live'>
-                  <td id="pres">Pressure</td>
-                  <td >45</td>
-                  <td>Good</td>
-                </tr>
-                <tr class = 'live'>
-                    <td id="temp"> Temperature</td>
-                    <td >45</td>
-                    <td>Good</td>
-                  </tr>
-                                 
-              </tbody>
-            </table>
-        </section>
+            <section class="scores">
+                <table class="scores__table">
+                    <caption id="caption"> </caption>
+                    <thead>
+                        <tr>
+                            <th>Pollutants</th>
+                            <th>Current readings</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="iaq">
+                            <td id="iaq">IAQ</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr class='live'>
+                            <td id="PM2.5">PM2.5</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr class='live'>
+                            <td id="PM10">PM10</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr class='live'>
+                            <td id="humid">Humidity</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr class='live'>
+                            <td id="pres">Pressure</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr class='live'>
+                            <td id="temp"> Temperature</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
 
-        <section class="chart">
+                    </tbody>
+                </table>
+            </section>
 
-            <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
+            <section class="chart">
 
-        </section>
+                <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
+
+            </section>
 
 
-        <section class="predict">
-            <table class="scores__table">
-              <thead>
-                <tr >
-                  <th colspan="3">Get a 3-day forecast </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="forecast-day">
-                  <td class="forecast-date"></td>
-                  <td class="forecast-date"></td>
-                  <td class="forecast-date"></td>
-                </tr>
-                <tr>
-                  <td>45</td>
-                  <td >45</td>
-                  <td>45</td>
-                </tr>
-                <tr>
-                  <td>PM10</td>
-                  <td >45</td>
-                  <td>Good</td>
-                </tr>              
-              </tbody>
-            </table>
+            <section class="predict">
+                <table class="scores__table">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Get a 3-day forecast </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="forecast-day">
+                            <td class="forecast-date"></td>
+                            <td class="forecast-date"></td>
+                            <td class="forecast-date"></td>
+                        </tr>
+                        <tr>
+                            <td>45</td>
+                            <td>45</td>
+                            <td>45</td>
+                        </tr>
+                        <tr>
+                            <td>PM10</td>
+                            <td>45</td>
+                            <td>Good</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- <button id="predict"> Get a 3-day forecast</button> -->
+                <!-- <button id="predict"> Get a 3-day forecast</button> -->
 
-        </section>
+            </section>
 
-        <!-- <section class="news recent-news" style="padding: 10px 0 0 0;">
+            <!-- <section class="news recent-news" style="padding: 10px 0 0 0;">
           <h2 class="news__title">Latest news <a href="#" class="news__more">+ more</a></h2>
           <ul>
             <li class="snippet">
@@ -155,106 +157,109 @@
             </li>
           </ul>
         </section> -->
-     </section>
-      <footer class="footer">
-        <ul>
-          <li><a href="#">Contact us</a></li>
-          <li><a href="#">Follow us on Twitter</a></li>
-        </ul>
-        <small> &copy; Copyright 2020, Noveltric</small>
-      </footer>
+
+        </section>
+        <footer class="footer">
+            <ul>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Follow us on Twitter</a></li>
+            </ul>
+            <small> &copy; Copyright 2020, Noveltric</small>
+        </footer>
     </main>
 
 
     <script>
 
-    // set up the date
-    const getDate = () => {
+        // set up the date
+        const getDate = () => {
             const d = new Date();
             dt = d.toString().slice(0, 10)
             // document.getElementById("caption").innerHTML = "Live readings, " + dt ;
             document.getElementById("caption").innerHTML = "Live readings, " + dt + " " + new Date().toLocaleTimeString();
         }
 
-    setInterval(getDate, 1000)
+        setInterval(getDate, 1000)
 
-    const getNextDate = (nextInt) => {
-        let currentDate = new Date()
-        currentDate.setDate(currentDate.getDate() + parseInt(nextInt))
-        return currentDate
-    }
-
-    const getDay = () => {
-        const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const tdDate = document.querySelectorAll(".forecast-date");
-        for (let i = 0; i < tdDate.length; i++){
-            console.log(typeof(i+1))
-            const nxtDate = getNextDate(i + 1);
-            tdDate[i].innerHTML = weekdays[nxtDate.getDay()]
-            // const nxtDay = nxtDate.toString().slice(0,)
+        const getNextDate = (nextInt) => {
+            let currentDate = new Date()
+            currentDate.setDate(currentDate.getDate() + parseInt(nextInt))
+            return currentDate
         }
-    }
-    getDay()
 
-    function live(){
+        const getDay = () => {
+            const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const tdDate = document.querySelectorAll(".forecast-date");
+            for (let i = 0; i < tdDate.length; i++) {
+                console.log(typeof (i + 1))
+                const nxtDate = getNextDate(i + 1);
+                tdDate[i].innerHTML = weekdays[nxtDate.getDay()]
+                // const nxtDay = nxtDate.toString().slice(0,)
+            }
+        }
+        getDay()
+
+        function live() {
             fetch('http://127.0.0.1:5000/live')
-            .then(response => response.json())
-            .then(data => {
-                const liveVal = document.querySelectorAll(".live");
-                console.log(data)
-                const iaq = document.querySelector(".iaq").childNodes[3]
-                iaq.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
+                .then(response => response.json())
+                .then(data => {
+                    const liveVal = document.querySelectorAll(".live");
+                    console.log(data)
+                    const iaq = document.querySelector(".iaq").childNodes[3]
+                    iaq.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
 
-                for (let i=0; i < liveVal.length; i++){
-                    param = liveVal[i].childNodes[1].id
-                    liveVal[i].childNodes[3].innerHTML = parseFloat(data[param]) 
-                }
-            })
-            .catch(function(e){
-                  console.log('Error'.e)
+                    for (let i = 0; i < liveVal.length; i++) {
+                        param = liveVal[i].childNodes[1].id
+                        liveVal[i].childNodes[3].innerHTML = parseFloat(data[param])
+                    }
+                })
+                .catch(function (e) {
+                    console.log('Error'.e)
                 })
         }
         live()
 
         setInterval(live, 150000)
 
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const chart = new Chart(ctx, {        
-    // The type of chart we want to create
-    type: 'line',
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
 
-    fill:false,
+            fill: false,
 
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'PM2.5',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-            fill:false
-        }],
-    },
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'PM2.5',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                    fill: false
+                }],
+            },
 
-    // Configuration options go here
-    options: {
-        responsive:false,
-        scales: {
-        xAxes: [{
-            gridLines: {
-                display:false
+            // Configuration options go here
+            options: {
+                responsive: false,
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            // display:false
+                        }
+                    }]
+                },
+                maintainAspectRation: false,
             }
-        }],
-        yAxes: [{
-            gridLines: {
-                // display:false
-            }   
-        }]
-    },
-        maintainAspectRation:false,
-    }
-});
+        });
+
     </script>
-  </body>
+</body>
+
 </html>
