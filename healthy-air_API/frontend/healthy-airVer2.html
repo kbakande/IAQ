@@ -191,7 +191,6 @@
             const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const tdDate = document.querySelectorAll(".forecast-date");
             for (let i = 0; i < tdDate.length; i++) {
-                console.log(typeof (i + 1))
                 const nxtDate = getNextDate(i + 1);
                 tdDate[i].innerHTML = weekdays[nxtDate.getDay()]
                 // const nxtDay = nxtDate.toString().slice(0,)
