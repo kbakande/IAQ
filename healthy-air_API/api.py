@@ -1,24 +1,62 @@
 from flask import Flask, jsonify, request
+from datetime import datetime as dt, timedelta
+import pandas as pd
 from flask_cors import CORS
 import pickle
 import requests
 
-#set up the sensor parameters
-sensorIDs = [25879, 8510, 61397, 33729]
-link ="https://www.purpleair.com/json?show={}".format(sensorIDs[1])
+# set up the sensor parameters
+sensorIDs = [25879, 8510, 61397, 33729, 59391]
+pollutants = {"PM1.0": 0, "PM2.5": 1,
+              "PM10.0": 2, "Temperature": 5, "Humidity": 6}
+link = "https://www.purpleair.com/json?show={}".format(sensorIDs[4])
 
-#upload the trained model
-model = pickle.load(open('../model.pkl', 'rb'))
+# upload the trained model
+model = pickle.load(open('model.pkl', 'rb'))
+
+# function to retrieve past week data
+
+
+def getPastData(sensorId, dtReq, pollutant):
+    sensor = sensorIDs[sensorId]
+
+    fileStr = "sensorData/" + str(sensor) + ".csv"
+    def custom_parser(date): return dt.strptime(date, '%Y-%m-%d')
+    sensorDf = pd.read_csv(fileStr, parse_dates=[
+                           'created_at'], date_parser=custom_parser)
+    sensorDf = sensorDf.drop_duplicates(subset=["created_at"], keep='first')
+    sensorDf = sensorDf.set_index('created_at')
+
+    wk_days = []
+    wk_dates = []
+    start_dt = dt.strptime(dtReq, '%Y-%m-%d')
+    end_dt = start_dt - timedelta(days=6)
+
+    def daterange(date1, date2):
+        for n in range(int((date2 - date1).days)+1):
+            yield date1 + timedelta(n)
+
+    for dts in daterange(end_dt, start_dt):
+        wk_days.append(dts.strftime("%A"))
+        wk_dates.append(dts.strftime("%Y-%m-%d"))
+
+    dataList = sensorDf.loc[wk_dates[0]: wk_dates[-1],
+                            sensorDf.columns[pollutants[pollutant]]].values.tolist()
+
+    return(dataList, wk_dates, wk_days)
+
 
 def create_app():
     app = Flask(__name__)
 
-    CORS(app, resources = {r"/*": {"origins" : "*"}})
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     @app.after_request
     def after_request(response):
-        response.headers.add("Access-Control-Allowed-Headers", "Content-Type, Authorization, true")
-        response.headers.add("Access-Control-Allowed-Methods", "GET, PATCH, POST, DELETE, OPTIONS")
+        response.headers.add("Access-Control-Allowed-Headers",
+                             "Content-Type, Authorization, true")
+        response.headers.add("Access-Control-Allowed-Methods",
+                             "GET, PATCH, POST, DELETE, OPTIONS")
         response.headers.add("Access-Control-Allowed-Origin", "*")
         return response
 
@@ -30,7 +68,7 @@ def create_app():
     def predict():
         data = request.get_json()["data"]
         PM_predicted = model.predict([data]).tolist()
-        return jsonify({"PM_predicted" : PM_predicted})
+        return jsonify({"PM_predicted": PM_predicted})
 
     @app.route('/live')
     def liveReadings():
@@ -40,13 +78,27 @@ def create_app():
         temp = data["results"][0]["temp_f"]
         Humidity = data["results"][0]["humidity"]
         Pressure = data["results"][0]["pressure"]
-        liveVals = {"PM2.5": PM2_5, "PM10": PM10, "temp": temp, "humid": Humidity, "pres": Pressure}
+        liveVals = {"PM2.5": PM2_5, "PM10": PM10,
+                    "temp": temp, "humid": Humidity, "pres": Pressure}
         return jsonify(liveVals)
+
+    @app.route('/pastData', methods=['POST'])
+    def getWeekData():
+        data = request.get_json()
+        sensorid = data["sensor"]
+        pollutant = data["pollutant"]
+        reqDate = data["reqDate"]
+
+        [dataList, wk_dates, wk_days] = getPastData(
+            sensorid, reqDate, pollutant)
+
+        return jsonify({"dataList": dataList, "wkDates": wk_dates, "wkDays": wk_days})
 
     # @app.route('/chart')
     # def getChartData():
-        
+
     return app
+
 
 app = create_app()
 
