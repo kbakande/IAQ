@@ -147,27 +147,38 @@
     </main>
 
     <script>
+        // set restrictions & default value for date input element
+        document.getElementById('datePicker').value = new Date().toLocaleDateString('en-CA');
+        document.getElementById('datePicker').max = new Date().toLocaleDateString('en-CA')
 
         // set up chart data
         const getChartData = () => {
             const pollutant = document.getElementById("pollutant").value;
             const datePicker = document.getElementById("datePicker").value;
-
-            if (pollutant == "IAQ") {
-                console.log(pollutant)
-            }
+            console.log(datePicker)
             console.log(pollutant)
+            if (pollutant == "IAQ") {
+                fetch('http://127.0.0.1:5000/pastData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors',
+                    body: JSON.stringify({ "sensor": 0, "pollutant": "PM2.5", "reqDate": datePicker })
+                })
+                    .then(response => response.json()
+                    )
+                    .then(data => {
+                        console.log(data)
+                    }
+                    )
+                    .catch((e) => {
+                        console.log('Error: ', e)
+                    }
 
-
-
-            http://127.0.0.1:5000/pastData -H 'Content-Type: application/json' -X POST -d '{"sensor": 0, "pollutant": "PM2.5", "reqDate": "2020-11-13"}'
-
-            console.log(pollutant, datePicker)
+                    )
+            }
         }
-
-        // set restrictions & default value for date input element
-        document.getElementById('datePicker').value = new Date().toLocaleDateString('en-CA');
-        document.getElementById('datePicker').max = new Date().toLocaleDateString('en-CA')
 
         // set up the date
         const getDate = () => {
