@@ -153,6 +153,15 @@
             const pollutant = document.getElementById("pollutant").value;
             const datePicker = document.getElementById("datePicker").value;
 
+            if (pollutant == "IAQ") {
+                console.log(pollutant)
+            }
+            console.log(pollutant)
+
+
+
+            http://127.0.0.1:5000/pastData -H 'Content-Type: application/json' -X POST -d '{"sensor": 0, "pollutant": "PM2.5", "reqDate": "2020-11-13"}'
+
             console.log(pollutant, datePicker)
         }
 
