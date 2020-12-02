@@ -89,8 +89,8 @@
             </section>
 
             <section class="chart">
-                <label for="pollutant"> Select the Pollutant:</label>
-                <select name="pollutant" id="pollutant">
+                <label for="pollutant"> Pollutant:</label>
+                <select name="pollutant" id="pollutant" onchange="getChartData()">
                     <option value="IAQ" selected> IAQ </option>
                     <option value="PM1.0"> PM1.0 </option>
                     <option value="PM2.5"> PM2.5 </option>
@@ -98,6 +98,11 @@
                     <option value="Temperature"> Temperature </option>
                     <option value="Pressure"> Pressure</option>
                 </select>
+
+                <label for="date" style="margin-left: 15px;"> Date:</label>
+                <input name="datePicker" id="datePicker" type="date" onclick="getChartData();"
+                    onfocus="this.selectedIndex = -1;" min="2020-09-01">
+
                 <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
 
             </section>
@@ -142,6 +147,18 @@
     </main>
 
     <script>
+
+        // set up chart data
+        const getChartData = () => {
+            const pollutant = document.getElementById("pollutant").value;
+            const datePicker = document.getElementById("datePicker").value;
+
+            console.log(pollutant, datePicker)
+        }
+
+        // set restrictions & default value for date input element
+        document.getElementById('datePicker').value = new Date().toLocaleDateString('en-CA');
+        document.getElementById('datePicker').max = new Date().toLocaleDateString('en-CA')
 
         // set up the date
         const getDate = () => {
