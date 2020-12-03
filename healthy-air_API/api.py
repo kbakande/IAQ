@@ -46,6 +46,35 @@ def getPastData(sensorId, dtReq, pollutant):
     return(dataList, wk_dates, wk_days)
 
 
+def getForecastData(pollutant, reqDate, sensorId):
+    sensor = sensorIDs[sensorId]
+
+    fileStr = "sensorData/" + str(sensor) + ".csv"
+    def custom_parser(date): return dt.strptime(date, '%Y-%m-%d')
+    sensorDf = pd.read_csv(fileStr, parse_dates=[
+                           'created_at'], date_parser=custom_parser)
+    sensorDf = sensorDf.drop_duplicates(subset=["created_at"], keep='first')
+    sensorDf = sensorDf.set_index('created_at')
+
+    wk_days = []
+    wk_dates = []
+    start_dt = dt.strptime(dtReq, '%Y-%m-%d')
+    end_dt = start_dt - timedelta(days=3)
+
+    def daterange(date1, date2):
+        for n in range(int((date2 - date1).days)+1):
+            yield date1 + timedelta(n)
+
+    for dts in daterange(end_dt, start_dt):
+        wk_days.append(dts.strftime("%A"))
+        wk_dates.append(dts.strftime("%Y-%m-%d"))
+
+    dataList = sensorDf.loc[wk_dates[0]: wk_dates[-1],
+                            sensorDf.columns[pollutants[pollutant]]].values.tolist()
+
+    return(dataList, wk_dates, wk_days)
+
+
 def create_app():
     app = Flask(__name__)
 
@@ -94,8 +123,15 @@ def create_app():
 
         return jsonify({"dataList": dataList, "wkDates": wk_dates, "wkDays": wk_days})
 
-    # @app.route('/chart')
-    # def getChartData():
+    @app.route('/forecast')
+    def getForecast():
+        data = request.get_json()
+        sensorid = data["sensor"]
+        pollutant = data["pollutant"]
+        reqDate = data["reqDate"]
+
+        [dataList, wk_dates, wk_days] = getPastData(
+            sensorid, reqDate, pollutant)
 
     return app
 
