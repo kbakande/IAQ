@@ -96,7 +96,7 @@
                     <option value="PM2.5"> PM2.5 </option>
                     <option value="PM10.0"> PM10.0 </option>
                     <option value="Temperature"> Temperature </option>
-                    <option value="Humidity"> Pressure</option>
+                    <option value="Humidity"> Humidity</option>
                 </select>
 
                 <label for="date" style="margin-left: 15px;"> Date:</label>
@@ -112,7 +112,18 @@
                 <table class="scores__table">
                     <thead>
                         <tr>
-                            <th colspan="3">Get a 3-day forecast </th>
+                            <th colspan="3">Get a 3-day forecast
+                                <select name="pollutant" id="pollutant" onchange="">
+                                    <option value="IAQ" selected> IAQ </option>
+                                    <option value="PM1.0"> PM1.0 </option>
+                                    <option value="PM2.5"> PM2.5 </option>
+                                    <option value="PM10.0"> PM10.0 </option>
+                                    <option value="Temperature"> Temperature </option>
+                                    <option value="Humidity"> Humidity</option>
+                                </select>
+                            </th>
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -187,7 +198,7 @@
 
                         // The data for our dataset
                         data: {
-                            labels: chartData["wkDays"],
+                            labels: chartData["wkDates"],
                             datasets: [{
                                 label: pollutant,
                                 backgroundColor: 'rgb(255, 99, 132)',
