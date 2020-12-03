@@ -113,8 +113,8 @@
                     <thead>
                         <tr>
                             <th colspan="3">Get a 3-day forecast
-                                <select name="pollutant" id="pollutant" onchange="">
-                                    <option value="IAQ" selected> IAQ </option>
+                                <select name="pollutant" id="forecastPol" onchange="forecast()">
+                                    <option value="AQI" selected> AQI </option>
                                     <option value="PM1.0"> PM1.0 </option>
                                     <option value="PM2.5"> PM2.5 </option>
                                     <option value="PM10.0"> PM10.0 </option>
@@ -131,11 +131,11 @@
                             <td class="forecast-date"></td>
                             <td> 45</td>
                         </tr>
-                        <tr>
+                        <tr class="forecast-day">
                             <td class="forecast-date"></td>
                             <td>45</td>
                         </tr>
-                        <tr>
+                        <tr class="forecast-day">
                             <td class="forecast-date"></td>
                             <td>45</td>
                         </tr>
@@ -264,12 +264,47 @@
         }
         getDay()
 
+
+        function forecast() {
+            pollutant = document.getElementById("forecastPol").value
+            tDate = new Date().toLocaleDateString('en-CA')
+
+            let tempPol;
+            if (pollutant == "AQI") {
+                tempPol = "PM2.5"
+            }
+            else {
+                tempPol = pollutant
+            }
+
+            fetch('http://127.0.0.1:5000/forecast', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "sensor": 0, "pollutant": tempPol, "reqDate": tDate })
+            })
+                .then(rawForecastData => rawForecastData.json()
+                )
+                .then(forecastData => {
+                    // console.log(forecastData)
+                    forecastElements = document.querySelectorAll(".forecast-day")
+                    for (let i = 0; i < forecastElements.length; i++) {
+                        forecastElements[i].childNodes[1].innerHTML = forecastData["forcastDays"][i] //forecastData["forcastDates"][i]),
+                        forecastElements[i].childNodes[3].innerHTML = forecastData["forecastList"][i]
+                    }
+                })
+                .catch((e) => {
+                    console.log('Error: ', e)
+                })
+        }
+        forecast()
+
         function live() {
             fetch('http://127.0.0.1:5000/live')
                 .then(response => response.json())
                 .then(data => {
                     const liveVal = document.querySelectorAll(".live");
-                    console.log(data)
                     const iaq = document.querySelector(".iaq").childNodes[3]
                     iaq.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
 
