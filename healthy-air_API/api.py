@@ -46,7 +46,7 @@ def getPastData(sensorId, dtReq, pollutant):
     return(dataList, wk_dates, wk_days)
 
 
-def getForecastData(pollutant, reqDate, sensorId):
+def getForecastData(sensorId, dtReq, pollutant):
     sensor = sensorIDs[sensorId]
 
     fileStr = "sensorData/" + str(sensor) + ".csv"
@@ -59,7 +59,7 @@ def getForecastData(pollutant, reqDate, sensorId):
     wk_days = []
     wk_dates = []
     start_dt = dt.strptime(dtReq, '%Y-%m-%d')
-    end_dt = start_dt - timedelta(days=3)
+    end_dt = start_dt - timedelta(days=2)
 
     def daterange(date1, date2):
         for n in range(int((date2 - date1).days)+1):
@@ -72,7 +72,28 @@ def getForecastData(pollutant, reqDate, sensorId):
     dataList = sensorDf.loc[wk_dates[0]: wk_dates[-1],
                             sensorDf.columns[pollutants[pollutant]]].values.tolist()
 
-    return(dataList, wk_dates, wk_days)
+    # get the dates and days for 3day forecast
+    futureDays = []
+    futureDates = []
+    tday = dt.strptime(wk_dates[-1], '%Y-%m-%d')
+    forecastEndDate = tday + timedelta(days=3)
+    for dts in daterange(tday, forecastEndDate):
+        futureDays.append(dts.strftime("%A"))
+        futureDates.append(dts.strftime("%Y-%m-%d"))
+
+    return(dataList, futureDates, futureDays)
+
+
+def getForecastVals(dataList, wk_dates, wk_days):
+    wk_dates = wk_dates[1:]
+    wk_days = wk_days[1:]
+    forecastList = []
+    for k in range(len(wk_dates)):
+        tempForecast = round(sum(dataList[-3:])/len(dataList[-3:]), 2)
+        forecastList.append(tempForecast)
+        dataList.append(tempForecast)
+
+        return(forecastList, wk_days, wk_dates)
 
 
 def create_app():
@@ -123,15 +144,19 @@ def create_app():
 
         return jsonify({"dataList": dataList, "wkDates": wk_dates, "wkDays": wk_days})
 
-    @app.route('/forecast')
+    @app.route('/forecast', methods=['POST'])
     def getForecast():
         data = request.get_json()
         sensorid = data["sensor"]
         pollutant = data["pollutant"]
         reqDate = data["reqDate"]
 
-        [dataList, wk_dates, wk_days] = getPastData(
+        [dataList, wk_dates, wk_days] = getForecastData(
             sensorid, reqDate, pollutant)
+
+        [forcastList, forcastDates, forcastDays] = getForecastVals(
+            dataList, wk_dates, wk_days)
+        return jsonify({"forecastList": forcastList, "forcastDates": forcastDates, "forcastDays": forcastDays})
 
     return app
 
