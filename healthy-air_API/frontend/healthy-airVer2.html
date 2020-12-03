@@ -96,14 +96,14 @@
                     <option value="PM2.5"> PM2.5 </option>
                     <option value="PM10.0"> PM10.0 </option>
                     <option value="Temperature"> Temperature </option>
-                    <option value="Pressure"> Pressure</option>
+                    <option value="Humidity"> Pressure</option>
                 </select>
 
                 <label for="date" style="margin-left: 15px;"> Date:</label>
-                <input name="datePicker" id="datePicker" type="date" onclick="getChartData();"
+                <input name="datePicker" id="datePicker" type="date" onchange="getChartData();"
                     onfocus="this.selectedIndex = -1;" min="2020-09-01">
 
-                <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
+                <div id="chartContainer"><canvas id="myChart" style="width: 100%;height: 100%;"></canvas></div>
 
             </section>
 
@@ -118,18 +118,15 @@
                     <tbody>
                         <tr class="forecast-day">
                             <td class="forecast-date"></td>
-                            <td class="forecast-date"></td>
-                            <td class="forecast-date"></td>
+                            <td> 45</td>
                         </tr>
                         <tr>
-                            <td>45</td>
-                            <td>45</td>
+                            <td class="forecast-date"></td>
                             <td>45</td>
                         </tr>
                         <tr>
-                            <td>PM10</td>
+                            <td class="forecast-date"></td>
                             <td>45</td>
-                            <td>Good</td>
                         </tr>
                     </tbody>
                 </table>
@@ -155,31 +152,80 @@
         const getChartData = () => {
             const pollutant = document.getElementById("pollutant").value;
             const datePicker = document.getElementById("datePicker").value;
-            console.log(datePicker)
-            console.log(pollutant)
+
+            // setup variable to extract PM2.5 data for IAQ calculation
+            let tempPol;
             if (pollutant == "IAQ") {
-                fetch('http://127.0.0.1:5000/pastData', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'cors',
-                    body: JSON.stringify({ "sensor": 0, "pollutant": "PM2.5", "reqDate": datePicker })
-                })
-                    .then(response => response.json()
-                    )
-                    .then(data => {
-                        console.log(data)
-                    }
-                    )
-                    .catch((e) => {
-                        console.log('Error: ', e)
-                    }
-
-                    )
+                tempPol = "PM2.5"
             }
-        }
+            else {
+                tempPol = pollutant
+            }
 
+            fetch('http://127.0.0.1:5000/pastData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "sensor": 0, "pollutant": tempPol, "reqDate": datePicker })
+            })
+                .then(rawChartData => rawChartData.json()
+                )
+                .then(chartData => {
+                    console.log(chartData)
+                    document.getElementById('myChart').remove() //remove the canvass
+                    const canv = document.createElement("canvas")
+                    canv.setAttribute("id", "myChart")
+                    canv.setAttribute("style", "width: 100%;height: 100%;")
+                    document.getElementById('chartContainer').appendChild(canv) //append a new canvas to div container
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: 'line',
+
+                        fill: false,
+
+                        // The data for our dataset
+                        data: {
+                            labels: chartData["wkDays"],
+                            datasets: [{
+                                label: pollutant,
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderColor: 'rgb(255, 99, 132)',
+                                data: chartData["dataList"],
+                                fill: false
+                            }],
+                        },
+
+                        // Configuration options go here
+                        options: {
+                            responsive: false,
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    }
+                                }],
+                                yAxes: [{
+                                    gridLines: {
+                                        // display:false
+                                    }
+                                }]
+                            },
+                            maintainAspectRatio: false,
+                        }
+                    });
+
+                }
+                )
+                .catch((e) => {
+                    console.log('Error: ', e)
+                }
+
+                )
+        }
+        //run at windo load up
+        getChartData()
         // set up the date
         const getDate = () => {
             const d = new Date();
@@ -200,7 +246,7 @@
             const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const tdDate = document.querySelectorAll(".forecast-date");
             for (let i = 0; i < tdDate.length; i++) {
-                const nxtDate = getNextDate(i + 1);
+                const nxtDate = getNextDate(i + 1)
                 tdDate[i].innerHTML = weekdays[nxtDate.getDay()]
                 // const nxtDay = nxtDate.toString().slice(0,)
             }
@@ -232,43 +278,7 @@
         // call the live readings at 2.5 mins inteerval
         setInterval(live, 150000)
 
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
 
-            fill: false,
-
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'PM2.5',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                    fill: false
-                }],
-            },
-
-            // Configuration options go here
-            options: {
-                responsive: false,
-                scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display: false
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            // display:false
-                        }
-                    }]
-                },
-                maintainAspectRation: false,
-            }
-        });
 
     </script>
 </body>
