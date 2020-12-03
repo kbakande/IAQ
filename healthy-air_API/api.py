@@ -93,7 +93,7 @@ def getForecastVals(dataList, wk_dates, wk_days):
         forecastList.append(tempForecast)
         dataList.append(tempForecast)
 
-        return(forecastList, wk_days, wk_dates)
+    return(forecastList, wk_days, wk_dates)
 
 
 def create_app():
