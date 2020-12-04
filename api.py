@@ -20,7 +20,7 @@ link = "https://www.purpleair.com/json?show={}".format(sensorIDs[2])
 def getPastData(sensorId, dtReq, pollutant):
     sensor = sensorIDs[sensorId]
 
-    fileStr = "sensorData/" + str(sensor) + ".csv"
+    fileStr = "../sensorData/" + str(sensor) + ".csv"
     def custom_parser(date): return dt.strptime(date, '%Y-%m-%d')
     sensorDf = pd.read_csv(fileStr, parse_dates=[
                            'created_at'], date_parser=custom_parser)
@@ -48,7 +48,7 @@ def getPastData(sensorId, dtReq, pollutant):
 def getForecastData(sensorId, dtReq, pollutant):
     sensor = sensorIDs[sensorId]
 
-    fileStr = "sensorData/" + str(sensor) + ".csv"
+    fileStr = "../sensorData/" + str(sensor) + ".csv"
     def custom_parser(date): return dt.strptime(date, '%Y-%m-%d')
     sensorDf = pd.read_csv(fileStr, parse_dates=[
                            'created_at'], date_parser=custom_parser)
