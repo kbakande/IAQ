@@ -4,77 +4,145 @@ body, html {
     width: 100%;
     height: 100%;
   }
-  
+
   body {
     font-family: Roboto;
     font-size: 12px;
     color: #424242;
   }
 
-  
+
   h1, h2, h3, h4, h5 {
-    margin: 0; 
+    margin: 0;
   }
-  
+
   header, nav, footer, section, article, div {
     box-sizing: border-box;
   }
-  
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
-  
+
+  nav {
+    background-color: white !important;
+    /*margin-bottom: 40px;*/
+    border-bottom: 1px solid #05490d52;
+  }
+  nav ul li a {
+    font-size: 16px;
+    /*font-weight: 600em;*/
+  }
+  .sections {
+    height: 84vh;
+  }
+  .badge {
+    font-size: 16px;
+  }
+  .pollutant {
+    font-size: 16px;
+    font-weight: bold;
+    width: 40%;
+    text-align: left;
+  }
+  .gradient-card-header {
+    border-radius: 5px 5px 0px 0px;
+  }
+  .custom-select {
+    width: 50%;
+    float: right;
+  }
+  h2.forecast {
+    display: inline-block;
+  }
+  .prediction {
+    border: 1px solid #78909C;
+    /*background-color: #78909C;*/
+    padding: 5px;
+    border-radius: 3px;
+  }
+ .col-side {
+   padding: 20px 20px;
+   /*border-top-left-radius: 10px;*/
+   /*border-bottom-left-radius: 10px;*/
+
+ }
+.vl {
+  border-left: 1px solid #cccccc;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+i.fa-calendar-alt {
+  margin-bottom: 20px;
+}
+.wider {
+  width: 95%;
+  /*margin-bottom: 15px;*/
+}
+.menu-button {
+  background-color: #05490d52 ;
+  border-radius: 3px;
+}
+/*.h-auto {*/
+/*  height: 95vh;*/
+/*}*/
   /*
    *
    * Common
-   * 
+   *
    */
-  
+
   .news__more {
     float: right;
     font-size: .8em;
     color: #333;
     text-decoration: none;
   }
-  
-  
+
+
   /*
    *
    * Header
    *
    */
-  
+
   .header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
     min-height: 56px;
     transition: min-height 0.3s;
   }
-  
+
   .header__inner {
     width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .header__logo {
-    height: 72px;
+    height: 60px;
     margin-right: 1em;
     vertical-align: top;
-    margin-top: 12px;
+    /*margin-top: 12px;*/
   }
-  
+
   .header__title {
     font-weight: 300;
-    font-size: 4em;
+    /*font-size: 4em;*/
     margin: 0.5em 0.25em;
     display: inline-block;
     color: #212121;
   }
-  
-  
+.header__h6 {
+  font-weight: 300;
+  /*font-size: 4em;*/
+  margin: 0.5em 0.25em;
+  display: inline-block;
+  color: #212121;
+}
+
   /*
    *
    * Top Level Navigation
@@ -85,13 +153,13 @@ body, html {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .nav__list {
     width: 100%;
     padding: 0;
     margin: 0;
   }
-  
+
   .nav__item {
     box-sizing: border-box;
     display: inline-block;
@@ -101,31 +169,35 @@ body, html {
     padding: 24px;
     text-transform: uppercase;
   }
-  
+
   .nav a {
     text-decoration: none;
     color: #616161;
   }
-  
+
   .nav a:hover {
     text-decoration: underline;
     color: #212121;
   }
-  
-  
+
+
   /*
    *
    * Main
    *
    */
-  
+
   main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-    width: 800px;
+    /*width: 800px;*/
     margin-left: auto;
     margin-right: auto;
   }
-  
+
+
+  .col-sm {
+    padding: 20px;
+  }
   /*
    *
    * Content
@@ -137,23 +209,46 @@ body, html {
     justify-content: space-between;
     min-height: 620px;
   }
-  
+
   /*
    *
    * Hero
    *
    */
-  
+
   .hero {
     float: left;
-    width: 49%;
-    position: relative;
-    background-image: url("./img/iaq1.jpg");
-    background-size: cover;
-    height:300px;
+    width: 200px;
     padding-bottom: 20px ;
   }
-  
+  .selection{
+    float: right;
+    display: block;
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  .selection label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .form-control-date {
+    display: inline;
+    width: 50%;
+    float: right;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem 1.75rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
   .hero article {
     box-sizing: border-box;
     background-color: #000;
@@ -166,21 +261,22 @@ body, html {
     padding: 0em;
     text-align: center;
   }
-  
-  
+
+
   /*
    *
    * Chart
    *
    */
-  
+
   .chart {
-    width: 550px;
-    height: 300px;
+    width: auto;
+    height: 60%;
+    padding: 1rem !important;
   }
   #chartContainer {
     width: 100%;
-    height: 95%;
+    height: 100%;
   }
   #myChart{
       width: 100%;
@@ -206,25 +302,25 @@ body, html {
     line-height: 24px;
     font-size: 16px;
   }
-  
-  
+
+
   /*
    *
    * Sport Scores
    *
    */
-  
+
   .scores {
     width: 50%;
     height: 300px;
     float: right;
     padding-top: 0em;
   }
-  
+
   #caption{
-    background-color: #527f96;
-    color: rgb(226, 153, 43);
-    font-size: 16px;
+    /*background-color: #527f96;*/
+    /*color: rgb(226, 153, 43);*/
+    /*font-size: 16px;*/
 
   }
 
@@ -233,153 +329,162 @@ body, html {
     border-collapse: collapse;
     height: 300px;
   }
-  
+
   .scores__table th,
   .scores__table td {
-    padding: 1em; 
+    padding: 1em;
   }
-  
+
   .scores__table th {
     color: #fff;
     font-weight: 300;
     background-color: #78909C;
   }
-  
+
   .scores__table tr:nth-child(odd) td {
     background-color: #fff;
   }
-  
+
   .scores__table tr:nth-child(even) td {
     background-color: #eceff1;
   }
-  
+
   .scores__table td.winner {
     font-weight: bold;
   }
-  
+
   .scores__table td:nth-child(3) {
     text-align: right;
   }
-  
+
   .scores__table td:nth-child(2),
   .scores__table td:nth-child(5) {
     text-align: center;
   }
-  
+
   /*
    *
    * Weather
    *
    */
-  
+
   .weather {
     float: right;
     width: 50%;
     padding: 1em;
   }
-  
+
   .weather__location {
     display: block;
     font-weight: 300;
     font-size: 1.5em;
   }
-  
+
   .weather__desc {
     display: block;
     font-size: 1.2em;
   }
-  
+
   .weather__today {
     width: 60%;
     vertical-align: middle;
   }
-  
+
   .weather__today__image {
     vertical-align: middle
   }
-  
+
   .weather__today__temp {
     font-size: 3em;
   }
-  
+
   .weather__today__deg {
     font-size: 2em;
     display: inline;
   }
-  
+
   .weather__next__item {
     display: inline-block;
     width: 20%;
     text-align: center;
   }
-  
+
   .weather__next__item span {
     display: block;
   }
-  
+
   .weather__next__image {
     width: 100%;
   }
-  
-  
+
+
   /*
    *
    * Weather
    *
    */
-  
+
   .recent-news {
     clear: both;
     padding: 1em;
   }
-  
+
   .snippet {
     clear: both;
     margin: 24px 0;
   }
-  
+
   .snippet__thumbnail {
     width: 100px;
     float: left;
     margin-right: 1em;
   }
-  
+
   .snippet__title {
     font-weight: 500;
   }
-  
+
   .snippet__title a {
     text-decoration: none;
     color: #666;
   }
-  
+
   .snippet__title a:hover,
   .snippet__title a:active {
     text-decoration: underline;
   }
-  
-  
+
+
   /*
    *
    * Footer
    *
    */
-  
-  footer {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #E0E0E0;
-    padding: 1em;
-    width: 100%;
-  }
-  
+
+  /*footer {*/
+
+  /*}*/
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+  display: flex;
+  height: 6vh;
+  justify-content: space-between;
+  border-top: 1px solid #E0E0E0;
+  padding: 1.5em;
+  background-color: #05490d52;
+}
+
   footer li {
     display: inline-block;
     margin: 0 1em;
   }
-  
+
   footer a {
     text-decoration: none;
     color: #333;
   }
-  

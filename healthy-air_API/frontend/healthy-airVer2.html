@@ -7,151 +7,183 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Healthy-Air</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" >-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="healthy-airVer2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="healthy-air.js"></script>
 </head>
 
-<body>
-    <header class="header">
-        <div class="header__inner">
-            <img class="header__logo" src="img/pic_iaq.jpg" alt="Healthy-Air Building">
-            <h1 class="header__title">
-                Healthy-Air
-            </h1>
-            <h5 style="padding: 0 0 1rem 20rem;">
-                Improving indoor air quality
-            </h5>
-        </div>
-    </header>
+<body class="grey-skin">
 
-    <nav id="drawer" class="nav">
-        <ul class="nav__list">
-            <li class="nav__item"><a href="#">Home</a></li>
-            <li class="nav__item"><a href="#">Pollutants</a></li>
-            <li class="nav__item"><a href="#">Analytics</a></li>
-            <li class="nav__item"><a href="#">About</a></li>
+<nav class="mb-1 navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important;">
+
+    <a class="navbar-brand" href="#"> <img class="header__logo" src="img/pic_iaq.jpg" alt="Healthy-Air Building">
+        <h3 class="header__title" >Healthy-Air</h3>
+        <h6 class="header__h6">...Improving indoor air quality</h6>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+            aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light active" href="#">
+                   Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#" >
+                    Pollutants
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link menu-button z-depth-1" href="#" >
+                   Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#">
+                    About
+                </a>
+            </li>
         </ul>
-    </nav>
+    </div>
+</nav>
+
+
 
     <main>
-        <section class="content">
-            <section class="hero">
-                <article class="description">
-                    <h2>Enabling high-quality indoor air in every home!</h2>
-                </article>
-            </section>
+        <div class="row sections">
+            <div class="col-8">
+                <h2 class="p-3">Test Home</h2>
+                <section class="chart">
 
-            <section class="scores">
-                <table class="scores__table">
-                    <caption id="caption"> </caption>
-                    <thead>
-                        <tr>
-                            <th>Pollutants</th>
-                            <th>Current readings</th>
-                            <th>Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="iaq">
-                            <td id="iaq">IAQ</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr class='live'>
-                            <td id="PM2.5">PM2.5</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr class='live'>
-                            <td id="PM10">PM10</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr class='live'>
-                            <td id="humid">Humidity</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr class='live'>
-                            <td id="pres">Pressure</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr class='live'>
-                            <td id="temp"> Temperature</td>
-                            <td>45</td>
-                            <td>Good</td>
-                        </tr>
+                    <img src="img/iaq1.jpg" class="hero  img-fluid rounded float-left" alt="placeholder">
+                    <div class="mt-5">
+                    <div class="selection">
+                    <label for="pollutant">  Pollutant:</label>
+                    <select name="pollutant" id="pollutant" onchange="getChartData()" class="browser-default custom-select">
+                        <option value="IAQ" selected> IAQ </option>
+                        <option value="PM1.0"> PM1.0 </option>
+                        <option value="PM2.5"> PM2.5 </option>
+                        <option value="PM10.0"> PM10.0 </option>
+                        <option value="Temperature"> Temperature </option>
+                        <option value="Humidity"> Humidity</option>
+                    </select>
+                    </div>
+                    <div class="selection">
+                    <label for="datePicker"> Date:</label>
+                    <input name="datePicker" id="datePicker" type="date" onchange="getChartData();"
+                           onfocus="this.selectedIndex = -1;" min="2020-09-01" class="form-control-date">
+                    </div>
+                    </div>
+                    <div id="chartContainer"><canvas id="myChart" style="width: 100%;height: 100%;"></canvas></div>
 
-                    </tbody>
-                </table>
-            </section>
+                </section>
+            </div>
+            <div class="col-4 col-side blue-grey lighten-5">
+                <div class="card card-cascade wider z-depth-5 mb-3">
+                    <div class="view view-cascade gradient-card-header light-blue lighten-4 p-3">
+                        <h3 class="card-header-title" id="caption">Live Readings</h3>
+                    </div>
 
-            <section class="chart">
-                <label for="pollutant"> Pollutant:</label>
-                <select name="pollutant" id="pollutant" onchange="getChartData()">
-                    <option value="IAQ" selected> IAQ </option>
-                    <option value="PM1.0"> PM1.0 </option>
-                    <option value="PM2.5"> PM2.5 </option>
-                    <option value="PM10.0"> PM10.0 </option>
-                    <option value="Temperature"> Temperature </option>
-                    <option value="Humidity"> Humidity</option>
-                </select>
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade text-center">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center iaq">
+                                <span class="pollutant">IAQ</span>
+                                <span class="badge badge-default badge-pill" id="iaq">46</span>
+                                <i class="far fa-thumbs-up  fa-2x blue-text"></i>
+                                <!--                                <span class="comments">Good</span>-->
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center live">
+                                <span class="pollutant">PM2.5</span>
+                                <span class="badge badge-default badge-pill" id="PM2.5">2</span>
+                                <i class="far fa-thumbs-up  fa-2x blue-text"></i>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center live">
+                                <span class="pollutant">PM10</span>
+                                <span class="badge badge-default badge-pill" id="PM10">1</span>
+                                <i class="far fa-thumbs-up  fa-2x blue-text"></i>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center live">
+                                <span class="pollutant">Humidity</span>
+                                <span class="badge badge-default badge-pill" id="humid">14</span>
+                                <i class="far fa-thumbs-up  fa-2x blue-text"></i>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center live">
+                                <span class="pollutant">Pressure</span>
+                                <span class="badge badge-default badge-pill" id="pres">2</span>
+                                <i class="far fa-thumbs-up fa-2x blue-text"></i>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center live">
+                                <span class="pollutant">Temperature</span>
+                                <span class="badge badge-default badge-pill" id="temp">2</span>
+                                <i class="far fa-thumbs-up  fa-2x blue-text"></i>
+                            </li>
+                        </ul>
 
-                <label for="date" style="margin-left: 15px;"> Date:</label>
-                <input name="datePicker" id="datePicker" type="date" onchange="getChartData();"
-                    onfocus="this.selectedIndex = -1;" min="2020-09-01">
+                    </div>
+                </div>
+                <div class="card card-cascade wider z-depth-5">
+                    <div class="view view-cascade deep-orange lighten-4 p-3">
+                        <h2 class="card-header-title forecast">Forecast</h2>
+                        <select name="pollutant" id="forecastPol" onchange="forecast()" class="browser-default custom-select">
+                            <option value="AQI" selected> AQI </option>
+                            <option value="PM1.0"> PM1.0 </option>
+                            <option value="PM2.5"> PM2.5 </option>
+                            <option value="PM10.0"> PM10.0 </option>
+                            <option value="Temperature"> Temperature </option>
+                            <option value="Humidity"> Humidity</option>
+                        </select>
+                    </div>
+                    <div class=""></div>
+                    <div class="card-body card-body-cascade text-center">
+                        <i class="far fa-calendar-alt fa-3x"></i>
 
-                <div id="chartContainer"><canvas id="myChart" style="width: 100%;height: 100%;"></canvas></div>
+                        <div class="row">
+                    <div class="col forecast-day">
+                                <h6 class="card-title forecast-date">23/11/2020</h6>
+                                <hr>
+                                <h1 class="forecast">34</h1>
+                    </div>
+                    <div class="vl"></div>
+                    <div class="col forecast-day">
+                                <h6 class="card-title forecast-date">23/11/2020</h6>
+                                <hr>
+                                <h1 class="forecast">34</h1>
+                    </div>
+                            <div class="vl"></div>
+                    <div class="col forecast-day">
+                                <h6 class="card-title forecast-date">23/11/2020</h6>
+                                <hr>
+                                <h1 class="forecast">34</h1>
+                    </div>
+                </div>
+                    </div>
+                </div>
 
-            </section>
 
+            </div>
+        </div>
+            <footer class="footer z-depth-0.5">
+                <ul>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Follow us on Twitter</a></li>
+                </ul>
+                <small> &copy; Copyright 2020, Noveltric</small>
+            </footer>
 
-            <section class="predict">
-                <table class="scores__table">
-                    <thead>
-                        <tr>
-                            <th colspan="3">Get a 3-day forecast
-                                <select name="pollutant" id="forecastPol" onchange="forecast()">
-                                    <option value="AQI" selected> AQI </option>
-                                    <option value="PM1.0"> PM1.0 </option>
-                                    <option value="PM2.5"> PM2.5 </option>
-                                    <option value="PM10.0"> PM10.0 </option>
-                                    <option value="Temperature"> Temperature </option>
-                                    <option value="Humidity"> Humidity</option>
-                                </select>
-                            </th>
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="forecast-day">
-                            <td class="forecast-date"></td>
-                            <td> 45</td>
-                        </tr>
-                        <tr class="forecast-day">
-                            <td class="forecast-date"></td>
-                            <td>45</td>
-                        </tr>
-                        <tr class="forecast-day">
-                            <td class="forecast-date"></td>
-                            <td>45</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </section>
-
-        </section>
-        <footer class="footer">
-            <ul>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Follow us on Twitter</a></li>
-            </ul>
-            <small> &copy; Copyright 2020, Noveltric</small>
-        </footer>
     </main>
 
     <script>
@@ -183,13 +215,14 @@
                 .then(rawChartData => rawChartData.json()
                 )
                 .then(chartData => {
-                    console.log(chartData)
+                    // console.log(chartData)
                     document.getElementById('myChart').remove() //remove the canvass
                     const canv = document.createElement("canvas")
                     canv.setAttribute("id", "myChart")
                     canv.setAttribute("style", "width: 100%;height: 100%;")
                     document.getElementById('chartContainer').appendChild(canv) //append a new canvas to div container
                     const ctx = document.getElementById('myChart').getContext('2d');
+
                     chart = new Chart(ctx, {
                         // The type of chart we want to create
                         type: 'line',
@@ -211,15 +244,25 @@
                         // Configuration options go here
                         options: {
                             responsive: false,
+                            label: "jjj",
                             scales: {
                                 xAxes: [{
                                     gridLines: {
                                         display: false
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Date'
                                     }
+
                                 }],
                                 yAxes: [{
                                     gridLines: {
                                         // display:false
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Readings'
                                     }
                                 }]
                             },
@@ -291,7 +334,7 @@
                     forecastElements = document.querySelectorAll(".forecast-day")
                     for (let i = 0; i < forecastElements.length; i++) {
                         forecastElements[i].childNodes[1].innerHTML = forecastData["forcastDays"][i] //forecastData["forcastDates"][i]),
-                        forecastElements[i].childNodes[3].innerHTML = forecastData["forecastList"][i]
+                        forecastElements[i].childNodes[5].innerHTML = forecastData["forecastList"][i]
                     }
                 })
                 .catch((e) => {
@@ -304,17 +347,17 @@
             fetch('http://127.0.0.1:5000/live')
                 .then(response => response.json())
                 .then(data => {
-                    const liveVal = document.querySelectorAll(".live");
+                    const liveVal = document.querySelectorAll(".live")
                     const iaq = document.querySelector(".iaq").childNodes[3]
                     iaq.innerHTML = aqiFromPM(parseInt(data["PM2.5"]))
-
                     for (let i = 0; i < liveVal.length; i++) {
-                        param = liveVal[i].childNodes[1].id
+                        param = liveVal[i].childNodes[3].id
+                        console.log(param)
                         liveVal[i].childNodes[3].innerHTML = parseFloat(data[param])
                     }
                 })
                 .catch(function (e) {
-                    console.log('Error'.e)
+                    console.log('Error'+e)
                 })
         }
 
@@ -324,9 +367,18 @@
         // call the live readings at 2.5 mins inteerval
         setInterval(live, 150000)
 
-
-
     </script>
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>-->
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"></script>
+
 </body>
 
 </html>
