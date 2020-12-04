@@ -1,4 +1,6 @@
 *.csv
 __pycache__
 venv
-venvAQI/*
+healthy-air_API/venvAQI/*
+.DS_Store
+.ipynb_checkpoints
