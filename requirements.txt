@@ -2,7 +2,7 @@ flask
 datetime
 pandas
 flask_cors
-pickle
+pickle-mixin
 requests
 # xlwt==1.3.0
 # watchdog==0.10.2
