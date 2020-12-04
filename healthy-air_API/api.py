@@ -9,7 +9,7 @@ import requests
 sensorIDs = [25879, 8510, 61397, 33729, 59391]
 pollutants = {"PM1.0": 0, "PM2.5": 1,
               "PM10.0": 2, "Temperature": 5, "Humidity": 6}
-link = "https://www.purpleair.com/json?show={}".format(sensorIDs[4])
+link = "https://www.purpleair.com/json?show={}".format(sensorIDs[2])
 
 # upload the trained model
 # model = pickle.load(open('model.pkl', 'rb'))
@@ -42,7 +42,6 @@ def getPastData(sensorId, dtReq, pollutant):
 
     dataList = sensorDf.loc[wk_dates[0]: wk_dates[-1],
                             sensorDf.columns[pollutants[pollutant]]].values.tolist()
-
     return(dataList, wk_dates, wk_days)
 
 
@@ -59,7 +58,7 @@ def getForecastData(sensorId, dtReq, pollutant):
     wk_days = []
     wk_dates = []
     start_dt = dt.strptime(dtReq, '%Y-%m-%d')
-    end_dt = start_dt - timedelta(days=2)
+    end_dt = start_dt - timedelta(days=3)
 
     def daterange(date1, date2):
         for n in range(int((date2 - date1).days)+1):
@@ -68,9 +67,11 @@ def getForecastData(sensorId, dtReq, pollutant):
     for dts in daterange(end_dt, start_dt):
         wk_days.append(dts.strftime("%A"))
         wk_dates.append(dts.strftime("%Y-%m-%d"))
-
     dataList = sensorDf.loc[wk_dates[0]: wk_dates[-1],
                             sensorDf.columns[pollutants[pollutant]]].values.tolist()
+
+    avg = sum(dataList)/len(dataList)
+    dataList.append(avg)
 
     # get the dates and days for 3day forecast
     futureDays = []
@@ -80,7 +81,6 @@ def getForecastData(sensorId, dtReq, pollutant):
     for dts in daterange(tday, forecastEndDate):
         futureDays.append(dts.strftime("%A"))
         futureDates.append(dts.strftime("%Y-%m-%d"))
-
     return(dataList, futureDates, futureDays)
 
 
@@ -92,7 +92,7 @@ def getForecastVals(dataList, wk_dates, wk_days):
         tempForecast = round(sum(dataList[-3:])/len(dataList[-3:]), 2)
         forecastList.append(tempForecast)
         dataList.append(tempForecast)
-
+        print(forecastList)
     return(forecastList, wk_days, wk_dates)
 
 
@@ -114,11 +114,11 @@ def create_app():
     def home():
         return "Welcome to Healthy-Air - Improving the Indoor Air Quality"
 
-    @app.route('/predict', methods=["POST"])
-#     def predict():
-#         data = request.get_json()["data"]
-#         PM_predicted = model.predict([data]).tolist()
-#         return jsonify({"PM_predicted": PM_predicted})
+    # @app.route('/predict', methods=["POST"])
+    # def predict():
+    #     data = request.get_json()["data"]
+    #     PM_predicted = model.predict([data]).tolist()
+    #     return jsonify({"PM_predicted": PM_predicted})
 
     @app.route('/live')
     def liveReadings():
@@ -128,9 +128,9 @@ def create_app():
         temp = data["results"][0]["temp_f"]
         Humidity = data["results"][0]["humidity"]
         Pressure = data["results"][0]["pressure"]
+        PM1_0 = data["results"][0]["pm1_0_cf_1"]
         liveVals = {"PM2.5": PM2_5, "PM10": PM10,
-                    "temp": temp, "humid": Humidity, "pres": Pressure}
-        print(liveVals)
+                    "temp": temp, "humid": Humidity, "pres": Pressure, "PM1.0": PM1_0}
         return jsonify(liveVals)
 
     @app.route('/pastData', methods=['POST'])
