@@ -12,7 +12,7 @@ pollutants = {"PM1.0": 0, "PM2.5": 1,
 link = "https://www.purpleair.com/json?show={}".format(sensorIDs[4])
 
 # upload the trained model
-model = pickle.load(open('model.pkl', 'rb'))
+# model = pickle.load(open('model.pkl', 'rb'))
 
 # function to retrieve past week data
 
@@ -115,10 +115,10 @@ def create_app():
         return "Welcome to Healthy-Air - Improving the Indoor Air Quality"
 
     @app.route('/predict', methods=["POST"])
-    def predict():
-        data = request.get_json()["data"]
-        PM_predicted = model.predict([data]).tolist()
-        return jsonify({"PM_predicted": PM_predicted})
+#     def predict():
+#         data = request.get_json()["data"]
+#         PM_predicted = model.predict([data]).tolist()
+#         return jsonify({"PM_predicted": PM_predicted})
 
     @app.route('/live')
     def liveReadings():
@@ -130,6 +130,7 @@ def create_app():
         Pressure = data["results"][0]["pressure"]
         liveVals = {"PM2.5": PM2_5, "PM10": PM10,
                     "temp": temp, "humid": Humidity, "pres": Pressure}
+        print(liveVals)
         return jsonify(liveVals)
 
     @app.route('/pastData', methods=['POST'])
