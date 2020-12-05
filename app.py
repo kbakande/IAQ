@@ -97,7 +97,7 @@ def getForecastVals(dataList, wk_dates, wk_days):
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="./frontend", static_url_path="/")
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -112,7 +112,8 @@ def create_app():
 
     @app.route('/')
     def home():
-        return "Welcome to Healthy-Air - Improving the Indoor Air Quality"
+        return app.send_static_file("index.html")
+        # return "Welcome to Healthy-Air - Improving the Indoor Air Quality"
 
     # @app.route('/predict', methods=["POST"])
     # def predict():
