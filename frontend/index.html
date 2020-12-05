@@ -195,6 +195,11 @@
     </main>
 
     <script>
+        // define the backend app url 
+        const localURL = 'http://127.0.0.1:5000';
+        const prodURL = 'https://healthy-air.herokuapp.com/';
+        const curURL = prodURL;
+
         // set restrictions & default value for date input element
         document.getElementById('datePicker').value = new Date().toLocaleDateString('en-CA');
         document.getElementById('datePicker').max = new Date().toLocaleDateString('en-CA')
@@ -213,7 +218,7 @@
                 tempPol = pollutant
             }
 
-            fetch('http://127.0.0.1:5000/pastData', {
+            fetch(curURL + '/pastData', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -327,7 +332,7 @@
                 tempPol = pollutant
             }
 
-            fetch('http://127.0.0.1:5000/forecast', {
+            fetch(curURL + '/forecast', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -351,7 +356,7 @@
         forecast()
 
         function live() {
-            fetch('http://127.0.0.1:5000/live')
+            fetch(curURL + '/live')
                 .then(response => response.json())
                 .then(data => {
                     const liveVal = document.querySelectorAll(".live")

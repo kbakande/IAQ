@@ -5,6 +5,7 @@ flask_cors
 pickle-mixin
 requests
 gunicorn
+python-dotenv
 # xlwt==1.3.0
 # watchdog==0.10.2
 # openpyxl==3.0.3
