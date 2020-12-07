@@ -1,5 +1,5 @@
 # Healthy-Air -- An Indoor Air Quality Monitoring Solution
-Healthy-Air is an innovative solution that is developed to significantly effect attitudinal changes and alter the behaviour of the general populace towards indoor air quality. Healthy-Air achieves its objectives through AI-based analytics and intuitive visualisation, that are designed to persuade the users to take action towards improving poor indoor air quality. The healthy-Air app is deployed on Heroku and live at [Healthy-Air](https://healthy-air.herokuapp.com/. 
+Healthy-Air is an innovative solution that is developed to significantly effect attitudinal changes and alter the behaviour of the general populace towards indoor air quality. Healthy-Air achieves its objectives through AI-based analytics and intuitive visualisation, that are designed to persuade the users to take action towards improving poor indoor air quality. The healthy-Air app is deployed on Heroku and live at [Healthy-Air](https://healthy-air.herokuapp.com/). 
 
 The code follows [PEP 8 style guide](https://pep8.org/).
 
