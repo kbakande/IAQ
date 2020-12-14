@@ -80,6 +80,11 @@ The API will return two types of errors when a request fails:
 
 ### Endpoints
 
+
+```bash
+curl https://healthy-air.herokuapp.com/forecast -H 'Content-Type: application/json' -X POST -d '{"sensor": 0, "pollutant": "Temperature", "reqDate": "2020-12-03"}'
+```
+
 GET /categories
 * General
     - Returns an object with a single key, categories, that contains a object of id: category_string key:value pairs. 
@@ -154,18 +159,5 @@ POST /forecast
 To run the tests, run
 
 
-
 ### Terms of Use
 
-This dataset is released for academic and educational use, with citation and reference to GAMS. 
-
-All commercial usage and derivative works are forbidden without permission from GAMS. 
-
-Please refer to LICENSE for additional details. 
-
-
-###Endpoints
-
-```bash
-curl https://healthy-air.herokuapp.com/forecast -H 'Content-Type: application/json' -X POST -d '{"sensor": 0, "pollutant": "Temperature", "reqDate": "2020-12-03"}'
-```
