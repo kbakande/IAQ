@@ -9,7 +9,7 @@ import requests
 sensorIDs = [25879, 8510, 61397, 33729, 59391]
 pollutants = {"PM1.0": 0, "PM2.5": 1,
               "PM10.0": 2, "Temperature": 5, "Humidity": 6}
-link = "https://www.purpleair.com/json?show={}".format(sensorIDs[2])
+link = "https://www.purpleair.com/json?show={}".format(sensorIDs[0])
 
 # upload the trained model
 # model = pickle.load(open('../models/model.pkl', 'rb'))
